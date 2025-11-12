@@ -70,4 +70,16 @@ public class CommentTest
        }
        assertFalse(addCommentResult);
     }
+    public void testInvalidRatingBelowRange()
+    {
+        Comment comment = new Comment ("Alice" , "Bad rating", 0);
+        boolean result = (comment.getRating() >= 1 && comment.getRating() <= 5);
+        assertFalse(result);
+    }
+    public void testInvalideRatingAboveRange()
+    {
+        Comment comment = new Comment ("Bob", "High rating", 6);
+        boolean result = (comment.getRating() >= 1 && comment.getRating() <= 5);
+        assertFalse(result);
+    }
 }
