@@ -11,6 +11,8 @@ import org.junit.Test;
  */
 public class SalesItemTest
 {
+    private SalesItem item;
+    private Comment c1, c2, c3;
     /**
      * Default constructor for test class SalesItemTest
      */
@@ -26,6 +28,7 @@ public class SalesItemTest
     @Before
     public void setUp()
     {
+        item = new SalesItem("Bluetooth Speaker", 4999);
     }
 
     /**
@@ -68,5 +71,21 @@ public class SalesItemTest
         SalesItem salesIte1 = new SalesItem("test name", 1000);
         assertEquals("test name", salesIte1.getName());
         assertEquals(1000, salesIte1.getPrice());
+    }
+    public void testFindMostHelpfulCommentNoComments()
+    {
+        assertNull(item.findMostHelpfulComment());
+    }
+    public void testFindMostHelpfulCommentHighestRating()
+    {
+        item.addComment("Alice", "Good sound", 4);
+        item.addComment("Bob", "too quiet",2);
+        item.addComment("Charlie", "Excellent bass", 5);
+        
+        Comment mostHelpful = item.findMostHelpfulComment();
+        
+        assertNotNull(mostHelpful);
+        assertEquals("Charlie", mostHelpful.getAuthor());
+        assertEquals(5, mostHelpful.getRating());
     }
 }
