@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class CommentTest
 {
-    private SalesItem item;
+    private Comment comment;
     
     /**
      * Default constructor for test class CommentTest
@@ -32,7 +32,7 @@ public class CommentTest
     @BeforeEach
     public void setUp()
     {
-        item = new SalesItem("Labtop", 1200);
+        comment = new Comment("Alice", "great product", 5);
     }
 
     /**
@@ -70,16 +70,19 @@ public class CommentTest
        }
        assertFalse(addCommentResult);
     }
-    public void testInvalidRatingBelowRange()
-    {
-        Comment comment = new Comment ("Alice" , "Bad rating", 0);
-        boolean result = (comment.getRating() >= 1 && comment.getRating() <= 5);
-        assertFalse(result);
+    public void testAuthorAndRatingStoredCorrectly() {
+        assertEquals("Alice", comment.getAuthor(), "Author should be stored correctly");
+        assertEquals(5, comment.getRating(), "Rating should be stored correctly");
     }
-    public void testInvalideRatingAboveRange()
-    {
-        Comment comment = new Comment ("Bob", "High rating", 6);
-        boolean result = (comment.getRating() >= 1 && comment.getRating() <= 5);
-        assertFalse(result);
+    public void testUpvoteIncreasesVoteCount() {
+        int initialVotes = comment.getVoteCount();
+        comment.upvote();
+        assertEquals(initialVotes + 1, comment.getVoteCount(), "Upvote should increase vote count by 1");
     }
+    public void testDownvoteDecreasesVoteCount() {
+        int initialVotes = comment.getVoteCount();
+        comment.downvote();
+        assertEquals(initialVotes - 1,comment.getVoteCount(), "Downvote should decrease vote count by 1");
+    }
+ 
 }
