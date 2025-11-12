@@ -88,4 +88,28 @@ public class SalesItemTest
         assertEquals("Charlie", mostHelpful.getAuthor());
         assertEquals(5, mostHelpful.getRating());
     }
+    public void testAddCommentDuplicateAuthor() {
+        //Add a comment by same author twice
+        item.addComment("Alice", "Good sound", 4);
+        boolean result = item.addComment("Alice", "Changed my mind", 5);
+        
+        assertFalse(result);
+    }
+    public void testFindMostHelpfulCommentAfterUpvotes() {
+        item.addComment("alice", "Good", 3);
+        item.addComment("Bob", "Better", 3);
+        
+        item.upvoteComment(0);
+        item.upvoteComment(0);
+        
+        Comment mostHelpful = item.findMostHelpfulComment();
+        assertEquals("Alice", mostHelpful.getAuthor());
 }
+      public void testAddCommentBoundaryRating() {
+          assertTrue(item.addComment("Eve", "Lowest rating allowed", 0));
+          assertTrue(item.addComment("Frank", "Highest rating allowed", 5));
+          assertFalse(item.addComment("John", "too high", 6));
+          assertFalse(item.addComment("David", "Too low", -1));
+      }
+    }
+

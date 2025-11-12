@@ -84,5 +84,23 @@ public class CommentTest
         comment.downvote();
         assertEquals(initialVotes - 1,comment.getVoteCount(), "Downvote should decrease vote count by 1");
     }
- 
+    public void testUpvoteAndDownvote()
+    {
+        Comment c = new Comment("Alice", "Nice", 4);
+        
+        c.upvote();
+        c.upvote();
+        assertEquals(2, c.getVoteCount());
+        
+        c.downvote();
+        assertEquals(1, c.getVoteCount());
+    }
+    public void testFullDetailsText() {
+        Comment c = new Comment("Bob", "Excellent!", 5);
+        c.upvote();
+        String details = c.getFullDetails();
+        assertTrue(details.contains("Bob"));
+        assertTrue(details.contains("*****"));
+        assertTrue(details.contains("Voted as helpful: 1"));
+    }
 }
