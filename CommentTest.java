@@ -58,7 +58,7 @@ public class CommentTest
        for (Comment c : comments) {
            if (c.getAuthor().equals(duplicate.getAuthor())){
                foundDuplicate = true;
-               break;
+               
            }
        }
        boolean addCommentResult;
@@ -86,7 +86,7 @@ public class CommentTest
     }
     public void testUpvoteAndDownvote()
     {
-        Comment c = new Comment("Alice", "Nice", 4);
+        Comment c = new Comment("Charlie", "Nice", 5);
         
         c.upvote();
         c.upvote();

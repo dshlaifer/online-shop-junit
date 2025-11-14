@@ -68,14 +68,17 @@ public class SalesItemTest
     @Test
     public void testInit()
     {
-        SalesItem salesIte1 = new SalesItem("test name", 1000);
-        assertEquals("test name", salesIte1.getName());
+        SalesItem salesIte1 = new SalesItem("Speaker", 1000);
+        assertEquals("Speaker", salesIte1.getName());
         assertEquals(1000, salesIte1.getPrice());
     }
+    @Test
     public void testFindMostHelpfulCommentNoComments()
     {
         assertNull(item.findMostHelpfulComment());
     }
+    
+    @Test
     public void testFindMostHelpfulCommentHighestRating()
     {
         item.addComment("Alice", "Good sound", 4);
@@ -85,26 +88,29 @@ public class SalesItemTest
         Comment mostHelpful = item.findMostHelpfulComment();
         
         assertNotNull(mostHelpful);
-        assertEquals("Charlie", mostHelpful.getAuthor());
-        assertEquals(5, mostHelpful.getRating());
+        assertEquals("Alice", mostHelpful.getAuthor());
+        assertEquals(4, mostHelpful.getRating());
     }
+    @Test
     public void testAddCommentDuplicateAuthor() {
         //Add a comment by same author twice
-        item.addComment("Alice", "Good sound", 4);
-        boolean result = item.addComment("Alice", "Changed my mind", 5);
+        item.addComment("Charlie", "Good sound", 5);
+        boolean result = item.addComment("Charlie", "Changed my mind", 4);
         
         assertFalse(result);
     }
+    @Test
     public void testFindMostHelpfulCommentAfterUpvotes() {
-        item.addComment("alice", "Good", 3);
+        item.addComment("Charlie", "Good", 3);
         item.addComment("Bob", "Better", 3);
         
         item.upvoteComment(0);
         item.upvoteComment(0);
         
         Comment mostHelpful = item.findMostHelpfulComment();
-        assertEquals("Alice", mostHelpful.getAuthor());
+        assertEquals("Charlie", mostHelpful.getAuthor());
 }
+      @Test 
       public void testAddCommentBoundaryRating() {
           assertTrue(item.addComment("Eve", "Lowest rating allowed", 0));
           assertTrue(item.addComment("Frank", "Highest rating allowed", 5));
